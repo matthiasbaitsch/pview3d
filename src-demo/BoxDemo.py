@@ -1,27 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import vtk
 from random import *
-from pview3d import Box
+from pview3d import *
 
-# renderer
-renderer = vtk.vtkRenderer()
+# viewer
+v = Viewer()
 
-n = 30
+n = 20
 for i in range(n):
     for j in range(n):
         box = Box()
         box.size = [1, 1, 5*random()]
         box.position = [i, j, 0]
         box.color = [random(), random(), random()]
-        box._add_to_renderer(renderer)
+        v.add_object(box)
 
-
-# render window
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(renderWindow)
-renderWindow.Render()
-interactor.Start()
+v.run()

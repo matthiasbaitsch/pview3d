@@ -1,30 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import vtk
 from random import *
-from pview3d import CylinderSet
-
+from pview3d import *
 
 def rvec():
     return [random(), random(), random()]
 
 # renderer
-renderer = vtk.vtkRenderer()
+v = Viewer()
 cs = CylinderSet()
-cs.color = 'blue'
+cs.color = 'antiquewhite'
 
-n = 5000
-for i in range(n):
-    cs.add_cylinder(rvec(), rvec(), 0.01 * random())
+# cylinders
+for i in range(10000):
+    cs.add_cylinder( rvec(), rvec(), 0.01 * random())
+v.add_object(cs)
 
-cs._add_to_renderer(renderer)
-
-# render window
-renderWindow = vtk.vtkRenderWindow()
-renderWindow.AddRenderer(renderer)
-interactor = vtk.vtkRenderWindowInteractor()
-interactor.SetRenderWindow(renderWindow)
-renderWindow.Render()
-interactor.Start()
+# run
+v.run()
 
