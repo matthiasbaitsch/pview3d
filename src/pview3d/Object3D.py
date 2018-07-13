@@ -12,29 +12,23 @@ class Object3D:
         self.color = [1, 1, 1]
 
     @property
-    def _actors(self):
-        return [self._actor] + self._additional_actors
-
-    @property
     def color(self):
         return self._actor.GetProperty().GetColor()
 
     @color.setter
     def color(self, c):
         if isinstance(c, str):
-            self._actor.GetProperty().SetColor(hex_to_rgb(matplotlib.colors.cnames[c]))
+            self.color = hex_to_rgb(matplotlib.colors.cnames[c])
         else:
             self._actor.GetProperty().SetColor(c)
 
+    @property
+    def _actors(self):
+        return [self._actor] + self._additional_actors
+
     def _add_to_renderer(self, r):
-        """
-        Add this Object3D to the specified renderer.
-        :type r: vtkRenderer
-        """
         for a in self._actors:
             r.AddActor(a)
-
-
 
 
 def hex_to_rgb(value):
