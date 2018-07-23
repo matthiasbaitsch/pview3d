@@ -23,6 +23,14 @@ class Object3D:
             self._actor.GetProperty().SetColor(c)
 
     @property
+    def visible(self):
+        return self._actor.IsVisible()
+
+    @visible.setter
+    def visible(self, v):
+        self._actor.SetVisible(v)
+
+    @property
     def _actors(self):
         return [self._actor] + self._additional_actors
 

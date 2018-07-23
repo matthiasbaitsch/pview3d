@@ -26,6 +26,10 @@ class Viewer(QMainWindow):
         o._add_to_renderer(self.ren)
         self.ren.ResetCamera()
 
+    def add_objects(self, objects):
+        for o in objects:
+            self.add_object(o)
+
     def run(self):
         self.show()
         sys.exit(self.app.exec_())
