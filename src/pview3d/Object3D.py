@@ -4,6 +4,13 @@ import matplotlib
 
 class Object3D:
 
+    @staticmethod
+    def set_color(a, c):
+        if isinstance(c, str):
+            Object3D.set_color(a, hex_to_rgb(matplotlib.colors.cnames[c]))
+        else:
+            a.GetProperty().SetColor(c)
+
     def __init__(self):
         self._mapper = vtkPolyDataMapper()
         self._actor = vtkActor()
@@ -17,10 +24,7 @@ class Object3D:
 
     @color.setter
     def color(self, c):
-        if isinstance(c, str):
-            self.color = hex_to_rgb(matplotlib.colors.cnames[c])
-        else:
-            self._actor.GetProperty().SetColor(c)
+        Object3D.set_color(self._actor, c)
 
     @property
     def visible(self):
@@ -28,7 +32,7 @@ class Object3D:
 
     @visible.setter
     def visible(self, v):
-        self._actor.SetVisible(v)
+        self._actor.SetVisibility(v)
 
     @property
     def _actors(self):
