@@ -37,12 +37,13 @@ class PolygonSet(AbstractMesh):
             pd.SetPoints(self._points)
             pd.GetPointData().SetScalars(self._scalars)
 
+        self._surface_source.SetExecuteMethod(us)
+
         def ue():
             pd = self._edge_source.GetPolyDataOutput()
             pd.SetLines(self._lines)
             pd.SetPoints(self._points)
 
-        self._surface_source.SetExecuteMethod(us)
         self._edge_source.SetExecuteMethod(ue)
 
     @property
